@@ -9,30 +9,53 @@ public:
     NesRomParser(std::string nesRomFullPath);
     ~NesRomParser();
 
+    char getVersion();
+
+    // Flags 4 & 5
     int getPrgPages();
     int getChrPages();
     int getPrgSize();
     int getChrSize();
+
+    // Flag 6
     bool hasMirroring();
     bool hasBattery();
     bool hasTrainer();
     bool isIgnoreMirroring();
+
     int getMapper();
+    // Flag 8
     int getSubMapper();
+
+    // Flag 7
     bool isVs();
     bool isPC10();
-    char getPrgRamSize();
+
+    // Flag 8 v1
+    char getPrgRamSize(); // TODO: investigate
+
+    // Flag 9 v1
     bool getTvSystem();
+
+    // Flag 10 v1
     bool isPal();
     bool isDual();
     bool isPrgRamPresent();
     bool hasBusConflicts();
+
+    // Flag 10 v2
     char getBatteryBacked();
     char getNotBatteryBacked();
+
+    // Flag 11 v2
     char getChrRamBatteryBacked();
     char getChrRamNotBatteryBacked();
+
+    // Flag 13 v2
     char getVsPPU();
     char getVsMode();
+
+    // Flag 14 v2
     char getMisc();
 
 private:

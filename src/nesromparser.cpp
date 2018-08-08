@@ -168,6 +168,8 @@ void NesRomParser::parseInesFlag12(){
     if(this->version == 2){
         this->pal = ALF_GET_BIT(this->header[12], 0);
         this->dual = ALF_GET_BIT(this->header[12], 1);
+
+        this->tvSystem = this->pal;
     }
 }
 
@@ -270,4 +272,8 @@ char NesRomParser::getVsMode(){
 }
 char NesRomParser::getMisc(){
     return this->misc;
+}
+
+char NesRomParser::getVersion(){
+    return this->version;
 }
