@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ALF_nes_header_editor
+TARGET = ALF-nes_header_editor
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use

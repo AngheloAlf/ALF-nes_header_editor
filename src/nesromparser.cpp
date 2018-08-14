@@ -45,9 +45,9 @@ void NesRomParser::parseRom(){
         free(this->header);
         return;
     }
-    for(int i  = 0; i< 16; i++){
+    /*for(int i  = 0; i< 16; i++){
         fprintf(stderr, "%i 0x%x\n", i, this->header[i]);
-    }
+    }*/
     // TODO: read the rest of the file and save it.
     nesFile.close();
     this->parseHeader();
