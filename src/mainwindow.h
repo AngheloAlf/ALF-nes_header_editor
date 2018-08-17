@@ -22,6 +22,7 @@ public slots:
     void updatePrgSlider(int signal);
     void updateChrSlider(int signal);
     void enablePrgRam(bool signal);
+    void saveRom();
 
 private:
     Ui::MainWindow *ui;

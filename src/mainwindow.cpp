@@ -1,7 +1,8 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 #include <QtGlobal>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->prgRamPresent, SIGNAL(clicked(bool)), this, SLOT(enablePrgRam(bool)));
     connect(ui->battery, SIGNAL(clicked(bool)), this, SLOT(enablePrgRam(bool)));
 
+    QAction *saveAct = new QAction("Save", this);
+    // saveAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+    saveAct->setShortcut(tr("Ctrl+S"));
+    // saveAct->setShortcut("Ctrl+S");
+    connect(saveAct, SIGNAL(triggered()), this, SLOT(saveRom()));
+    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveRom()));
 
 }
 
@@ -191,4 +198,10 @@ void MainWindow::enablePrgRam(bool signal){
     bool enable = nesRom->getVersion() == 1 && ui->prgRamPresent->isChecked() && ui->battery->isChecked() && signal;
     ui->prg_ram->setEnabled(enable);
     ui->label_prg_ram_size->setEnabled(enable);
+}
+
+void MainWindow::saveRom(){
+    QMessageBox msgBox;
+    msgBox.setText("Not implemented yet.");
+    msgBox.exec();
 }
