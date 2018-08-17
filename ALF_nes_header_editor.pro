@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/nesromparser.cpp
+    src/nesromparser.cpp \
+    src/nesromheader.cpp
 
 HEADERS += \
     src/mainwindow.h \
-    src/nesromparser.h
+    src/nesromparser.h \
+    src/nesromheader.h
 
 FORMS += \
     gui/mainwindow.ui

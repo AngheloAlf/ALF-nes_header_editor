@@ -3,6 +3,13 @@
 
 #include <string>
 
+#define TRAINER_SIZE 512
+#define PRG_ROM_SIZE 16384
+#define CHR_ROM_SIZE 8192
+#define PC10_ROM_SIZE 8192
+#define PC10_DATA_PROM_SIZE 16
+#define PC10_CO_PROM_SIZE 16
+
 class NesRomParser
 {
 public:
@@ -74,9 +81,12 @@ private:
     void parseInesFlag13();
     void parseInesFlag14();
     void parseInesFlag15();
+    void parseRestRom();
 
     std::string fullPath;
     int fileSize = 0;
+    /// The full rom without header
+    char fullRom;
 
     bool error = false;
 
@@ -120,7 +130,22 @@ private:
 
     char misc = 0;
 
-    // char *title;
+
+    // Header End
+
+    // Trainer
+    char *trainerRom = NULL;
+
+    // Prg and Chr Rom
+    char *prgRom;
+    char *chrRom = NULL;
+
+    // PC10 Rom
+    char *pc10Rom = NULL;
+    char *pc10DataPRom = NULL;
+    char *pc10CounterOutPRom = NULL;
+
+    char *title = NULL;
 };
 
 #endif // NESROMPARSER_H
