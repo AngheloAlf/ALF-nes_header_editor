@@ -85,8 +85,8 @@
        </item>
        <item row="4" column="2">
         <widget class="QLineEdit" name="version">
-         <property name="enabled">
-          <bool>false</bool>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -116,6 +116,9 @@
            <width>100</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="maximum">
+          <number>255</number>
          </property>
         </widget>
        </item>
@@ -177,6 +180,23 @@
            <width>100</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="maximum">
+          <number>255</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Total</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="prg_plus_chr">
+         <property name="enabled">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -285,7 +305,7 @@
            <x>0</x>
            <y>0</y>
            <width>414</width>
-           <height>570</height>
+           <height>626</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -378,9 +398,9 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
                  <item>
-                  <widget class="QLabel" name="label_17">
+                  <widget class="QLabel" name="label_prg_ram_size">
                    <property name="text">
-                    <string>Size of Prg RAM</string>
+                    <string>Size of PRG RAM</string>
                    </property>
                   </widget>
                  </item>
@@ -510,7 +530,22 @@
               <property name="checked">
                <bool>false</bool>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_8"/>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QPushButton" name="export_pc">
+                 <property name="text">
+                  <string>Export hint data</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="import_pc">
+                 <property name="text">
+                  <string>Import hint data</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
@@ -527,7 +562,22 @@
               <property name="checked">
                <bool>false</bool>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_6"/>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <widget class="QPushButton" name="export_trainer">
+                 <property name="text">
+                  <string>Export trainer data</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="import_trainer">
+                 <property name="text">
+                  <string>Import trainer data</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -815,7 +865,7 @@
   </action>
   <action name="actionSave">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Save</string>
@@ -824,5 +874,54 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>ignore_mirroring</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>mirroring_orientation</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>117</x>
+     <y>526</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>117</x>
+     <y>496</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dual</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tv_system</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>333</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>376</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>224</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

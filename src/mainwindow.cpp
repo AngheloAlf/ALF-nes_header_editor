@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <QtGlobal>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(this->ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
+    connect(this->ui->prg_pages, SIGNAL(valueChanged(int)), this, SLOT(updatePrgSlider(int)));
+    connect(this->ui->chr_pages, SIGNAL(valueChanged(int)), this, SLOT(updateChrSlider(int)));
+
+    connect(ui->prgRamPresent, SIGNAL(clicked(bool)), this, SLOT(enablePrgRam(bool)));
+    connect(ui->battery, SIGNAL(clicked(bool)), this, SLOT(enablePrgRam(bool)));
+
 
 }
 
@@ -29,7 +36,7 @@ void MainWindow::openFile(){
     }
     this->nesFullPath = file.toStdString();
 
-    this->ui->text_filename->clear();
+    this->ui->text_fullpath->clear();
     this->ui->text_fullpath->insert(file);
 
     QStringList splitted = file.split("/");
@@ -46,15 +53,15 @@ void MainWindow::openFile(){
     this->ui->version->clear();
     this->ui->version->insert(QString::number(version));
 
-    this->ui->text_prg_size->clear();
-    this->ui->text_prg_size->insert(QString::number(this->nesRom->getPrgSize()));
+    // this->ui->text_prg_size->clear();
+    // this->ui->text_prg_size->insert(QString::number(this->nesRom->getPrgSize()));
     // this->ui->text_prg_size->setEnabled(true);
     this->ui->prg_pages->clear();
     this->ui->prg_pages->setValue(this->nesRom->getPrgPages());
     this->ui->prg_pages->setEnabled(true);
 
-    this->ui->text_chr_size->clear();
-    this->ui->text_chr_size->insert(QString::number(this->nesRom->getChrSize()));
+    // this->ui->text_chr_size->clear();
+    // this->ui->text_chr_size->insert(QString::number(this->nesRom->getChrSize()));
     // this->ui->text_chr_size->setEnabled(true);
     this->ui->chr_pages->clear();
     this->ui->chr_pages->setValue(this->nesRom->getChrPages());
@@ -103,7 +110,7 @@ void MainWindow::openFile(){
 
     this->ui->prg_ram->clear();
     this->ui->prg_ram->setValue(this->nesRom->getPrgRamSize());
-    if(version == 1){
+    if(version == 1 && nesRom->isPrgRamPresent()){
         this->ui->prg_ram->setEnabled(true);
     }
     else{
@@ -154,4 +161,34 @@ void MainWindow::openFile(){
     if(version == 2){
         this->ui->miscRoms->setEnabled(true);
     }
+}
+
+void MainWindow::updateRomSizes(QLineEdit *edit_box, int size){
+    edit_box->clear();
+    edit_box->insert(QString::number(size));
+    edit_box->insert(" B / ");
+    edit_box->insert(QString::number(size/1024));
+    edit_box->insert(" KiB");
+
+    if((size/1024/1024) >= 1){
+        edit_box->insert(" / ");
+        edit_box->insert(QString::number((double)size/1024/1024));
+        edit_box->insert(" MiB");
+    }
+}
+
+void MainWindow::updatePrgSlider(int signal){
+    updateRomSizes(this->ui->text_prg_size, this->nesRom->getPrgSize(signal));
+    updateRomSizes(this->ui->prg_plus_chr, this->nesRom->getPrgSize(signal) + nesRom->getChrSize(ui->chr_pages->value()));
+}
+
+void MainWindow::updateChrSlider(int signal){
+    updateRomSizes(this->ui->text_chr_size, this->nesRom->getChrSize(signal));
+    updateRomSizes(this->ui->prg_plus_chr, this->nesRom->getChrSize(signal) + nesRom->getPrgSize(ui->prg_pages->value()));
+}
+
+void MainWindow::enablePrgRam(bool signal){
+    bool enable = nesRom->getVersion() == 1 && ui->prgRamPresent->isChecked() && ui->battery->isChecked() && signal;
+    ui->prg_ram->setEnabled(enable);
+    ui->label_prg_ram_size->setEnabled(enable);
 }

@@ -200,8 +200,14 @@ int NesRomParser::getChrPages(){
 int NesRomParser::getPrgSize(){
     return this->prgSize*16384;
 }
+int NesRomParser::getPrgSize(unsigned int pages){
+    return pages*16384;
+}
 int NesRomParser::getChrSize(){
     return this->chrSize*8192;
+}
+int NesRomParser::getChrSize(unsigned int pages){
+    return pages*8192;
 }
 
 bool NesRomParser::hasMirroring(){

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "nesromparser.h"
+#include <QLineEdit>
 
 namespace Ui {
 class MainWindow;
@@ -18,12 +19,17 @@ public:
 
 public slots:
     void openFile();
+    void updatePrgSlider(int signal);
+    void updateChrSlider(int signal);
+    void enablePrgRam(bool signal);
 
 private:
     Ui::MainWindow *ui;
     std::string nesFileName;
     std::string nesFullPath;
     NesRomParser *nesRom;
+
+    void updateRomSizes(QLineEdit *edit_box, int size);
 
 };
 

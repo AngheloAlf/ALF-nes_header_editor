@@ -15,7 +15,9 @@ public:
     int getPrgPages();
     int getChrPages();
     int getPrgSize();
+    int getPrgSize(unsigned int pages);
     int getChrSize();
+    int getChrSize(unsigned int pages);
 
     // Flag 6
     bool hasMirroring();
