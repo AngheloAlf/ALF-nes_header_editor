@@ -150,96 +150,96 @@ void NesRomHeader::parseInesFlag15(){
     // void
 }
 
-int NesRomParser::getPrgPages(){
+int NesRomHeader::getPrgPages(){
     return this->prgSize;
 }
-int NesRomParser::getChrPages(){
+int NesRomHeader::getChrPages(){
     return this->chrSize;
 }
-int NesRomParser::getPrgSize(){
+int NesRomHeader::getPrgSize(){
     return this->prgSize*PRG_ROM_SIZE;
 }
-int NesRomParser::getPrgSize(unsigned int pages){
+int NesRomHeader::getPrgSize(unsigned int pages){
     return pages*PRG_ROM_SIZE;
 }
-int NesRomParser::getChrSize(){
+int NesRomHeader::getChrSize(){
     return this->chrSize*CHR_ROM_SIZE;
 }
-int NesRomParser::getChrSize(unsigned int pages){
+int NesRomHeader::getChrSize(unsigned int pages){
     return pages*CHR_ROM_SIZE;
 }
 
-bool NesRomParser::hasMirroring(){
+bool NesRomHeader::hasMirroring(){
     return this->mirroring;
 }
-bool NesRomParser::hasBattery(){
+bool NesRomHeader::hasBattery(){
     return this->battery;
 }
-bool NesRomParser::hasTrainer(){
+bool NesRomHeader::hasTrainer(){
     return this->trainer;
 }
-bool NesRomParser::isIgnoreMirroring(){
+bool NesRomHeader::isIgnoreMirroring(){
     return this->ignoreMirroring;
 }
 
-int NesRomParser::getMapper(){
+int NesRomHeader::getMapper(){
     return this->mapper;
 }
-int NesRomParser::getSubMapper(){
+int NesRomHeader::getSubMapper(){
     return this->submapper;
 }
 
-bool NesRomParser::isVs(){
+bool NesRomHeader::isVs(){
     return this->vsUnisystem;
 }
-bool NesRomParser::isPC10(){
+bool NesRomHeader::isPC10(){
     return this->pc10;
 }
 
-char NesRomParser::getPrgRamSize(){
+char NesRomHeader::getPrgRamSize(){
     return this->prgRamSize;
 }
-bool NesRomParser::getTvSystem(){
+bool NesRomHeader::getTvSystem(){
     return this->tvSystem;
 }
-bool NesRomParser::isPal(){
+bool NesRomHeader::isPal(){
     return this->pal;
 }
-bool NesRomParser::isDual(){
+bool NesRomHeader::isDual(){
     return this->dual;
 }
-bool NesRomParser::isPrgRamPresent(){
+bool NesRomHeader::isPrgRamPresent(){
     return this->prgRamPresent;
 }
-bool NesRomParser::hasBusConflicts(){
+bool NesRomHeader::hasBusConflicts(){
     return this->busConflicts;
 }
 
-char NesRomParser::getBatteryBacked(){
+char NesRomHeader::getBatteryBacked(){
     return this->batteryBacked;
 }
-char NesRomParser::getNotBatteryBacked(){
+char NesRomHeader::getNotBatteryBacked(){
     return this->notBatteryBacked;
 }
 
-char NesRomParser::getChrRamBatteryBacked(){
+char NesRomHeader::getChrRamBatteryBacked(){
     return this->chrRamBatteryBacked;
 }
-char NesRomParser::getChrRamNotBatteryBacked(){
+char NesRomHeader::getChrRamNotBatteryBacked(){
     return this->chrRamNotBatteryBacked;
 }
 
-char NesRomParser::getVsPPU(){
+char NesRomHeader::getVsPPU(){
     return this->vsPPU;
 }
-char NesRomParser::getVsMode(){
+char NesRomHeader::getVsMode(){
     return this->vsMode;
 }
-char NesRomParser::getMisc(){
+char NesRomHeader::getMisc(){
     return this->misc;
 }
 
-char NesRomParser::getVersion(){
+char NesRomHeader::getVersion(){
     return this->version;
 }
 
