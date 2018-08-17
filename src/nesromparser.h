@@ -2,16 +2,9 @@
 #define NESROMPARSER_H
 
 #include <string>
+#include "nesromheader.h"
 
-#define TRAINER_SIZE 512
-#define PRG_ROM_SIZE 16384
-#define CHR_ROM_SIZE 8192
-#define PC10_ROM_SIZE 8192
-#define PC10_DATA_PROM_SIZE 16
-#define PC10_CO_PROM_SIZE 16
-
-class NesRomParser
-{
+class NesRomParser{
 public:
     NesRomParser(std::string nesRomFullPath);
     ~NesRomParser();
@@ -86,7 +79,7 @@ private:
     std::string fullPath;
     int fileSize = 0;
     /// The full rom without header
-    char fullRom;
+    char *fullRom;
 
     bool error = false;
 
