@@ -27,12 +27,20 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/nesromparser.cpp \
-    src/nesromheader.cpp
+    src/nesromheader.cpp \
+    src/prgrom.cpp \
+    src/abstractdatarom.cpp \
+    src/chrrom.cpp \
+    src/trainer.cpp
 
 HEADERS += \
     src/mainwindow.h \
     src/nesromparser.h \
-    src/nesromheader.h
+    src/nesromheader.h \
+    src/prgrom.h \
+    src/abstractdatarom.h \
+    src/chrrom.h \
+    src/trainer.h
 
 FORMS += \
     gui/mainwindow.ui
