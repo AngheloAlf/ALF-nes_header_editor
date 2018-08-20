@@ -3,6 +3,10 @@
 
 #include <string>
 #include "nesromheader.h"
+#include "trainer.h"
+#include "prgrom.h"
+#include "chrrom.h"
+#include "pc10.h"
 
 class NesRomParser{
 public:
@@ -26,16 +30,22 @@ private:
     NesRomHeader *header;
 
     // Trainer
-    char *trainerRom = NULL;
+    // char *trainerRom = NULL;
+    Trainer *trainerRom;
+
 
     // Prg and Chr Rom
-    char *prgRom;
-    char *chrRom = NULL;
+    // char *prgRom;
+    // char *chrRom = NULL;
+    PRGRom *prgRom;
+    CHRRom *chrRom;
+
 
     // PC10 Rom
-    char *pc10Rom = NULL;
-    char *pc10DataPRom = NULL;
-    char *pc10CounterOutPRom = NULL;
+    // char *pc10Rom = NULL;
+    // char *pc10DataPRom = NULL;
+    // char *pc10CounterOutPRom = NULL;
+    PC10 *pc10Rom;
 
     char *title = NULL;
 };

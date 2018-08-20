@@ -66,20 +66,25 @@ void NesRomParser::parseRestRom(){
     int aux_size;
 
     if(header->hasTrainer()){
-        trainerRom = (char *)malloc(sizeof(char) * TRAINER_SIZE);
-        memcpy(trainerRom, &fullRom[reader], TRAINER_SIZE);
+        trainerRom = new Trainer(&fullRom[reader]);
+        // trainerRom = (char *)malloc(sizeof(char) * TRAINER_SIZE);
+        // memcpy(trainerRom, &fullRom[reader], TRAINER_SIZE);
         size -= TRAINER_SIZE;
         reader += TRAINER_SIZE;
+        if(size < 0){
+            // Throw exception
+            error = true;
+            return;
+        }
     }
-    if(size < 0){
-        // Throw exception
-        error = true;
-        return;
+    else{
+        trainerRom = new Trainer(NULL);
     }
 
     aux_size = header->getPrgSize();
-    prgRom = (char *)malloc(sizeof(char) * aux_size);
-    memcpy(prgRom, &fullRom[reader], aux_size);
+    // prgRom = (char *)malloc(sizeof(char) * aux_size);
+    // memcpy(prgRom, &fullRom[reader], aux_size);
+    prgRom = new PRGRom(aux_size, &fullRom[reader]);
     size -= aux_size;
     reader += aux_size;
     if(size < 0){
@@ -90,8 +95,9 @@ void NesRomParser::parseRestRom(){
 
     aux_size = header->getChrSize();
     if(aux_size > 0){
-        chrRom = (char *)malloc(sizeof(char) * aux_size);
-        memcpy(chrRom, &fullRom[reader], aux_size);
+        // chrRom = (char *)malloc(sizeof(char) * aux_size);
+        // memcpy(chrRom, &fullRom[reader], aux_size);
+        chrRom = new CHRRom(aux_size, &fullRom[reader]);
         size -= aux_size;
         reader += aux_size;
         if(size < 0){
@@ -100,11 +106,18 @@ void NesRomParser::parseRestRom(){
             return;
         }
     }
+    else{
+        chrRom = new CHRRom(0, NULL);
+    }
 
     if(header->isPC10()){
         aux_size = PC10_ROM_SIZE;
-        pc10Rom = (char *)malloc(sizeof(char) * aux_size);
-        memcpy(pc10Rom, &fullRom[reader], aux_size);
+        const char *pc10 = &fullRom[reader];
+        const char *pc10Data = NULL;
+        const char *pc10CO = NULL;
+
+        // pc10Rom = (char *)malloc(sizeof(char) * aux_size);
+        // memcpy(pc10Rom, &fullRom[reader], aux_size);
         size -= aux_size;
         reader += aux_size;
         if(size < 0){
@@ -115,24 +128,30 @@ void NesRomParser::parseRestRom(){
         if(size >= 32){ // Maybe it has the PlayChoice PROM
             if(size == 32 || size == 159 || size == 160){ // There's the PlayChoice PROM or (PlayChoice PROM + title)
                 aux_size = PC10_DATA_PROM_SIZE;
-                pc10DataPRom = (char *)malloc(sizeof(char)*aux_size);
-                memcpy(pc10DataPRom, &fullRom[reader], aux_size);
+                // pc10DataPRom = (char *)malloc(sizeof(char)*aux_size);
+                // memcpy(pc10DataPRom, &fullRom[reader], aux_size);
+                pc10Data = &fullRom[reader];
                 size -= aux_size;
                 reader += aux_size;
 
                 aux_size = PC10_CO_PROM_SIZE;
-                pc10CounterOutPRom = (char *)malloc(sizeof(char)*aux_size);
-                memcpy(pc10CounterOutPRom, &fullRom[reader], aux_size);
+                // pc10CounterOutPRom = (char *)malloc(sizeof(char)*aux_size);
+                // memcpy(pc10CounterOutPRom, &fullRom[reader], aux_size);
+                pc10CO = &fullRom[reader];
                 size -= aux_size;
                 reader += aux_size;
             }
         }
+        pc10Rom = new PC10(pc10, pc10Data, pc10CO);
+    }
+    else{
+        pc10Rom = new PC10(NULL, NULL, NULL);
     }
 
     if(size > 0){
         aux_size = size;
         title = (char *)malloc(sizeof(char) * aux_size);
-        memcpy(pc10DataPRom, &fullRom[reader], aux_size);
+        memcpy(title, &fullRom[reader], aux_size);
         size -= aux_size;
         reader += aux_size;
     }

@@ -31,7 +31,8 @@ SOURCES += \
     src/prgrom.cpp \
     src/abstractdatarom.cpp \
     src/chrrom.cpp \
-    src/trainer.cpp
+    src/trainer.cpp \
+    src/pc10.cpp
 
 HEADERS += \
     src/mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     src/prgrom.h \
     src/abstractdatarom.h \
     src/chrrom.h \
-    src/trainer.h
+    src/trainer.h \
+    src/pc10.h
 
 FORMS += \
     gui/mainwindow.ui
